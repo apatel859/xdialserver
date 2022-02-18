@@ -32,8 +32,8 @@ std::string rtAppStatusCache :: getAppCacheId(const char *app_name)
           return rtAppStatusCache::Youtube_AppCacheId;
      else
      {
-          printf("Invalid App Name\n");
-          return "INVALID";
+          printf("default case : App Name is id\n");
+          return app_name;
      }
 
 }
@@ -53,7 +53,7 @@ void rtAppStatusCache :: setAppCacheId(const char *app_name,std::string id)
      }
      else
      {
-         printf("Invalid App Name \n");
+         printf("Default App Name - id not cached \n");
      }
 
 }
