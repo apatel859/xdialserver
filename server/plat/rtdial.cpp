@@ -408,7 +408,14 @@ bool rtdial_init(GMainContext *context) {
         printf("RTDIAL: rtRemoteRegisterObject for %s failed! error:%s !\n", objName, rtStrError(err));
         return false;
     }
-
+    if(AppCache){
+        rtObjectRef AppObj = new rtMapObject;
+        AppObj.set("applicationName","system");
+        AppObj.set("applicationId","");
+        AppObj.set("state","suspended");
+        AppObj.set("error","");
+        AppCache->UpdateAppStatusCache(rtValue(AppObj));
+    }
     INIT_COMPLETED =1;
     return true;
 }
