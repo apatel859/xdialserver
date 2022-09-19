@@ -339,6 +339,9 @@ int main(int argc, char *argv[]) {
       g_print("pairing is not enabled from cmdline\r\n");
     }
 
+    g_print("Comcast_FireboltRefApp is enabled from cmdline\r\n");
+    gdial_rest_server_register_app(dial_rest_server, "Comcast_FireboltRefApp", NULL, NULL, TRUE, TRUE, NULL);
+
     if (g_strstr_len(app_list_low, app_list_len, "system")) {
       g_print("system is enabled from cmdline\r\n");
       gdial_rest_server_register_app(dial_rest_server, "system", NULL, NULL, TRUE, TRUE, NULL);
