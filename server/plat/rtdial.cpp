@@ -453,10 +453,30 @@ void rtdial_term() {
 int gdial_os_application_start(const char *app_name, const char *payload, const char *query_string, const char *additional_data_url, int *instance_id) {
     printf("RTDIAL gdial_os_application_start : Application launch request: appName: %s  query: [%s], payload: [%s], additionalDataUrl [%s]\n",
         app_name, query_string, payload, additional_data_url);
-    if (strcmp(app_name,"system") == 0 && strcmp(query_string,"action=sleep") == 0 ) {
+    if (strcmp(app_name,"system") == 0 ) {
         if(strcmp(query_string,"action=sleep") == 0){
             printf("RTDIAL: system app request to change device to sleep mode");
             gdial_plat_dev_set_power_state_off();
+        }
+        else if(strcmp(query_string,"action=pause") == 0){
+            printf("RTDIAL: system app  pause \n");
+            system("keySimulator -kpause");
+        }
+        else if(strcmp(query_string,"action=play") == 0){
+            printf("RTDIAL: system app  play \n");
+            system("keySimulator -kplay");
+        }
+        else if(strcmp(query_string,"action=down") == 0){
+            printf("RTDIAL: system app  down  \n");
+            system("keySimulator -kdown");
+        }
+        else if(strcmp(query_string,"action=up") == 0){
+            printf("RTDIAL: system app  up \n");
+            system("keySimulator -kup");
+        }
+        else if(strcmp(query_string,"action=select") == 0){
+            printf("RTDIAL: system app  select \n");
+            system("keySimulator -kselect");
         }
         return GDIAL_APP_ERROR_NONE;
     }
