@@ -478,6 +478,19 @@ int gdial_os_application_start(const char *app_name, const char *payload, const 
             printf("RTDIAL: system app  select \n");
             system("keySimulator -kselect");
         }
+        else if(strcmp(query_string,"action=exit") == 0){
+            printf("RTDIAL: system app  select \n");
+            system("keySimulator -kexit");
+        }
+        else if(strcmp(query_string,"action=left") == 0){
+            printf("RTDIAL: system app  select \n");
+            system("keySimulator -kleft");
+        }
+        else if(strcmp(query_string,"action=right") == 0){
+            printf("RTDIAL: system app  select \n");
+            system("keySimulator -kright");
+        }
+	    
         return GDIAL_APP_ERROR_NONE;
     }
     gdial_plat_dev_set_power_state_on();
