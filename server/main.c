@@ -136,21 +136,31 @@ static void server_register_application(gpointer data)
 
     /*Remove all existing registered Apps*/
     gdial_rest_server_unregister_all_apps(dial_rest_server);
+    g_print(" after gdial_rest_server_unregister_all_apps \n");
     while(g_app_list) {
+        g_print(" after gdial_rest_server_unregister_all_apps in loop  \n");
         gdial_rest_server_register_app_registry (dial_rest_server, (GDialAppRegistry *)g_app_list->data);
         g_app_list = g_app_list->next;
     }
 
-    size_t app_list_len = strlen(options_.app_list);
-    gchar *app_list_low = g_ascii_strdown(options_.app_list, app_list_len);
-    if (g_strstr_len(app_list_low, app_list_len , "system")) {
-      g_print("Register system app -  enabled from cmdline\r\n");
-      gdial_rest_server_register_app(dial_rest_server, "system", NULL, NULL, TRUE, TRUE, NULL);
+       g_print(" Amit 123\n");
+    if (!options_.app_list) {
+        g_print(" No application is enabled from cmdline so ignore system app \r\n");
     }
-    else {
-      g_print("Dont register system app - not enabled from cmdline\r\n");
+    else{
+       size_t app_list_len = strlen(options_.app_list);
+       g_print(" Amit 777\n");
+       gchar *app_list_low = g_ascii_strdown(options_.app_list, app_list_len);
+        g_print(" Amit 888\n");
+       if (g_strstr_len(app_list_low, app_list_len , "system")) {
+         g_print("Register system app -  enabled from cmdline\r\n");
+         gdial_rest_server_register_app(dial_rest_server, "system", NULL, NULL, TRUE, TRUE, NULL);
+       }
+       else {
+         g_print("Dont register system app - not enabled from cmdline\r\n");
+       }
     }
-
+    g_print(" Amit server_register_application exit 1234\n");
 }
 
 static void server_friendlyname_handler(const gchar * friendlyname)

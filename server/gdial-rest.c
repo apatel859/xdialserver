@@ -1092,7 +1092,9 @@ gboolean gdial_rest_server_register_app(GDialRestServer *self, const gchar *app_
 
 gboolean gdial_rest_server_register_app_registry(GDialRestServer *self, GDialAppRegistry *app_registry) {
 
+  g_print("Amit Inside gdial_rest_server_register_app_registry \n");
   g_return_val_if_fail(self != NULL && app_registry != NULL, FALSE);
+  g_print("Amit Inside gdial_rest_server_register_app_registry 111  \n");
 
   GDialRestServerPrivate *priv = gdial_rest_server_get_instance_private(self);
   if (g_list_find_custom(priv->registered_apps, app_registry->name, GCompareFunc_match_registry_app_name) != NULL) {
@@ -1103,6 +1105,7 @@ gboolean gdial_rest_server_register_app_registry(GDialRestServer *self, GDialApp
     */
     return FALSE;
   }
+  g_print("Amit Inside gdial_rest_server_register_app_registry 114  \n");
 
   priv->registered_apps = g_list_prepend(priv->registered_apps, app_registry);
 
@@ -1110,23 +1113,28 @@ gboolean gdial_rest_server_register_app_registry(GDialRestServer *self, GDialApp
    * when an app is registered, we also check if it is already running
    * @TODO
    */
+  g_print("Amit Inside gdial_rest_server_register_app_registry 115  \n");
 
   g_return_val_if_fail(priv->registered_apps != NULL, FALSE);
   g_return_val_if_fail(gdial_rest_server_is_app_registered(self, app_registry->name), FALSE);
+  g_print("Amit Inside gdial_rest_server_register_app_registry 123  \n");
   return TRUE;
 }
 
 gboolean gdial_rest_server_unregister_all_apps(GDialRestServer *self) {
   g_return_val_if_fail(self != NULL, FALSE);
 
-  g_print("Inside gdial_rest_server_unregister_all_apps\n");
+  g_print("Amit Inside gdial_rest_server_unregister_all_apps\n");
   GDialRestServerPrivate *priv = gdial_rest_server_get_instance_private(self);
   GList *registered_apps_head = priv->registered_apps;
   /*Stopping all registread Apps*/
+  g_print("Amit gdial_rest_server_unregister_all_apps registered_apps pointer :%p \n",priv->registered_apps);
   while (priv->registered_apps) {
     GDialAppRegistry *app_registry = priv->registered_apps->data;
+    g_print("Amit gdial_rest_server_unregister_all_apps registered_apps 111 \n");
     GDialApp *app = gdial_app_find_instance_by_name(app_registry->name);
     if (app) {
+      g_print("Amit gdial_rest_server_unregister_all_apps registered_apps 222 \n");
       if (gdial_app_stop(app) == GDIAL_APP_ERROR_NONE) {
         g_warn_if_fail(gdial_app_state(app) == GDIAL_APP_ERROR_NONE && GDIAL_APP_GET_STATE(app) == GDIAL_APP_STATE_STOPPED);
       }
@@ -1134,15 +1142,20 @@ gboolean gdial_rest_server_unregister_all_apps(GDialRestServer *self) {
         g_printerr("gdial_app_stop(%s) failed, force shutdown\r\n", app->name);
         gdial_app_force_shutdown(app);
       }
+      g_print("Amit gdial_rest_server_unregister_all_apps registered_apps 333 \n");
       g_object_unref(app);
     }
     priv->registered_apps = priv->registered_apps->next;
   }
+    g_print("Amit gdial_rest_server_unregister_all_apps registered_apps 444 \n");
   priv->registered_apps = registered_apps_head;
+  g_print("Amit xxx gdial_rest_server_unregister_all_apps registered_apps pointer :%p \n",priv->registered_apps);
   /*Remove all registered apps before*/
   while (priv->registered_apps) {
+     g_print("Amit in loop exit gdial_rest_server_unregister_all_apps registered_apps pointer :%p \n",priv->registered_apps);
     priv->registered_apps = gdial_rest_server_registered_apps_clear(priv->registered_apps, priv->registered_apps);
   }
+  g_print("Amit exit gdial_rest_server_unregister_all_apps registered_apps pointer :%p \n",priv->registered_apps);
   return TRUE;
 }
 
