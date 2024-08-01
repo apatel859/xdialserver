@@ -150,6 +150,10 @@ static void server_register_application(gpointer data)
     else {
       g_print("Dont register system app - not enabled from cmdline\r\n");
     }
+  
+    g_print("Comcast_StreamApp is enabled from cmdline\r\n");
+    GList *allowed_origins = g_list_prepend(NULL, ".xfinity.com");
+    gdial_rest_server_register_app(dial_rest_server, "Comcast_StreamApp", NULL, NULL, TRUE, TRUE, allowed_origins);
 
 }
 
@@ -366,6 +370,10 @@ int main(int argc, char *argv[]) {
     else {
       g_print("system is not enabled from cmdline\r\n");
     }
+
+    g_print("Comcast_StreamApp is enabled from cmdline\r\n");
+    GList *allowed_origins = g_list_prepend(NULL, ".xfinity.com");
+    gdial_rest_server_register_app(dial_rest_server, "Comcast_StreamApp", NULL, NULL, TRUE, TRUE, allowed_origins);
 
     g_free(app_list_low);
   }
