@@ -219,6 +219,8 @@ GDIAL_STATIC gboolean gdial_rest_server_is_allowed_youtube_origin(GDialRestServe
   SoupURI *origin_uri = soup_uri_new(header_origin);
   const gchar *uri_scheme = origin_uri ? soup_uri_get_scheme(origin_uri) : NULL;
 
+  g_print("Amit YT  uri_scheme :%s header_origin %s\r\n",uri_scheme, header_origin);
+
   if (origin_uri && uri_scheme &&
     ( uri_scheme == SOUP_URI_SCHEME_HTTPS )) {
     GDialAppRegistry *app_registry = gdial_rest_server_find_app_registry(self, app_name);
@@ -251,6 +253,8 @@ GDIAL_STATIC gboolean gdial_rest_server_is_allowed_origin(GDialRestServer *self,
 
   SoupURI *origin_uri = soup_uri_new(header_origin);
   const gchar *uri_scheme = origin_uri ? soup_uri_get_scheme(origin_uri) : NULL;
+
+  g_print("Amit non yt   uri_scheme :%s header_origin %s\r\n",uri_scheme, header_origin);
 
   if (origin_uri && uri_scheme &&
     (!g_strcmp0(uri_scheme, "package") || !g_strcmp0(uri_scheme, SOUP_URI_SCHEME_HTTPS))) {
